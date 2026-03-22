@@ -54,37 +54,37 @@ class TestTemplateThrowNotFound:
         assert exc_info.value.message == MESSAGE_NOT_FOUND_TEMPLATE
 
 
-class TestTemplateSum:
+class TestTemplateAdd:
     def test_sum_two_integers(self, template: Template) -> None:
-        assert template.sum(1, 2) == 3
+        assert template.add(1, 2) == 3
 
     def test_sum_negative_numbers(self, template: Template) -> None:
-        assert template.sum(-3, -2) == -5
+        assert template.add(-3, -2) == -5
 
     def test_sum_zero(self, template: Template) -> None:
-        assert template.sum(0, 0) == 0
+        assert template.add(0, 0) == 0
 
     def test_sum_returns_integer(self, template: Template) -> None:
-        assert isinstance(template.sum(1, 2), int)
+        assert isinstance(template.add(1, 2), int)
 
     def test_sum_float_raises_validation_error(self, template: Template) -> None:
         with pytest.raises(ValidationError):
-            template.sum(1.5, 2)
+            template.add(1.5, 2)
 
     def test_sum_string_raises_validation_error(self, template: Template) -> None:
         with pytest.raises(ValidationError):
-            template.sum("1", 2)
+            template.add("1", 2)
 
     def test_sum_none_raises_validation_error(self, template: Template) -> None:
         with pytest.raises(ValidationError):
-            template.sum(None, 2)
+            template.add(None, 2)
 
     def test_sum_validation_error_code(self, template: Template) -> None:
         with pytest.raises(ValidationError) as exc_info:
-            template.sum(1.5, 2)
+            template.add(1.5, 2)
         assert exc_info.value.code == CODE_NOT_VALID_INTEGER
 
     def test_sum_validation_error_message(self, template: Template) -> None:
         with pytest.raises(ValidationError) as exc_info:
-            template.sum(1.5, 2)
+            template.add(1.5, 2)
         assert exc_info.value.message == MESSAGE_NOT_VALID_INTEGER

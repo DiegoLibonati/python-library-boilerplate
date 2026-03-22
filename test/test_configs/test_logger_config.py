@@ -14,7 +14,7 @@ class TestSetupLoggerReturn:
 
     def test_default_name(self) -> None:
         logger = setup_logger()
-        assert logger.name == "flask-app"
+        assert logger.name == "template-library-python"
 
 
 class TestSetupLoggerLevel:

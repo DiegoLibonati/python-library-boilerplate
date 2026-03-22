@@ -7,6 +7,16 @@ name = "template_library_python"
 version = "1.0.0"
 description = "Personal template for developing an library with python."
 requires-python = ">=3.11"
+authors = [{name = "Diego Martin Libonati"}]
+license = {text = "MIT"}
+readme = "README.md"
+keywords = ["template", "library", "python"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -21,7 +21,7 @@ class Template:
     def throw_not_found(self) -> None:
         raise NotFoundError(code=CODE_NOT_FOUND_TEMPLATE, message=MESSAGE_NOT_FOUND_TEMPLATE)
 
-    def sum(self, num1: int, num2: int) -> int:
+    def add(self, num1: int, num2: int) -> int:
         if not isinstance(num1, int) or not isinstance(num2, int):
             raise ValidationError(code=CODE_NOT_VALID_INTEGER, message=MESSAGE_NOT_VALID_INTEGER)
         return num1 + num2
@@ -37,9 +37,9 @@ def main() -> None:
 
     library.say_hello()
 
-    sum = library.sum(num1=num1, num2=num2)
+    result = library.add(num1=num1, num2=num2)
 
-    logger.info(f"Sum: {sum}")
+    logger.info(f"Sum: {result}")
 
     logger.info(f"Model: {type(library.pydantic_model)}")
 
