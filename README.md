@@ -1,4 +1,4 @@
-# Python Library Boilerplate
+# PythonLibraryBoilerplate
 
 ## Educational Purpose
 
@@ -27,7 +27,7 @@ The main goal is to explore and demonstrate best practices, patterns, and techno
 
 ## Description
 
-**Python Library Boilerplate** is a production-ready starting point for building Python libraries from scratch. Instead of spending time setting up project structure, tooling, and architecture decisions every time you start a new library, this boilerplate gives you a solid, opinionated foundation that you can clone and build on top of immediately.
+**PythonLibraryBoilerplate** is a production-ready starting point for building Python libraries from scratch. Instead of spending time setting up project structure, tooling, and architecture decisions every time you start a new library, this boilerplate gives you a solid, opinionated foundation that you can clone and build on top of immediately.
 
 The project enforces a **layered architecture** where constants sit at the bottom, exceptions and utilities build on top of them, models handle input validation, and the main public class composes everything together. This separation ensures that each layer is independently testable and that concerns never leak across boundaries.
 
