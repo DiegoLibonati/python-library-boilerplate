@@ -1,10 +1,10 @@
-from template_library_python.configs.logger_config import setup_logger
-from template_library_python.constants.codes import CODE_NOT_FOUND_TEMPLATE, CODE_NOT_VALID_INTEGER
-from template_library_python.constants.messages import MESSAGE_NOT_FOUND_TEMPLATE, MESSAGE_NOT_VALID_INTEGER
-from template_library_python.models.template_model import TemplateModel
-from template_library_python.utils.exceptions import NotFoundError, ValidationError
+from python_library_boilerplate.configs.logger_config import setup_logger
+from python_library_boilerplate.constants.codes import CODE_NOT_FOUND_TEMPLATE, CODE_NOT_VALID_INTEGER
+from python_library_boilerplate.constants.messages import MESSAGE_NOT_FOUND_TEMPLATE, MESSAGE_NOT_VALID_INTEGER
+from python_library_boilerplate.models.template_model import TemplateModel
+from python_library_boilerplate.utils.exceptions import NotFoundError, ValidationError
 
-logger = setup_logger("Template Library - template.py")
+logger = setup_logger("python-library-boilerplate - template.py")
 
 
 class Template:

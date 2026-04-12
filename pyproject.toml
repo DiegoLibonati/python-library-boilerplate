@@ -3,14 +3,14 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "template_library_python"
+name = "python_library_boilerplate"
 version = "1.0.0"
-description = "Personal template for developing an library with python."
+description = "**Python Library Boilerplate** is a production-ready starting point for building Python libraries from scratch. Instead of spending time setting up project structure, tooling, and architecture decisions every time you start a new library, this boilerplate gives you a solid, opinionated foundation that you can clone and build on top of immediately."
 requires-python = ">=3.11"
 authors = [{name = "Diego Martin Libonati"}]
 license = {text = "MIT"}
 readme = "README.md"
-keywords = ["template", "library", "python"]
+keywords = ["template", "boilerplate", "library", "python"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
@@ -23,7 +23,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 pythonpath = "src"
-testpaths = ["test"]
+testpaths = ["tests"]
 python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"

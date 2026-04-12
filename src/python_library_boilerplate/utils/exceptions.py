@@ -1,5 +1,5 @@
-from template_library_python.constants.codes import CODE_ERROR_INTERNAL_LIBRARY
-from template_library_python.constants.messages import MESSAGE_ERROR_INTERNAL_LIBRARY
+from python_library_boilerplate.constants.codes import CODE_ERROR_INTERNAL_LIBRARY
+from python_library_boilerplate.constants.messages import MESSAGE_ERROR_INTERNAL_LIBRARY
 
 
 class BaseError(Exception):

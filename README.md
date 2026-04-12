@@ -1,4 +1,4 @@
-# Template-Library-Python
+# Python Library Boilerplate
 
 ## Educational Purpose
 
@@ -17,8 +17,8 @@ The main goal is to explore and demonstrate best practices, patterns, and techno
 7. Execute: `pip install -r requirements.test.txt`
 8. Install the package in editable mode: `pip install -e .`
 9. Run the project:
-    1. From CLI: `python -m template_library_python.template`
-    2. Or import as a library in Python: `from template_library_python import Template`
+    1. From CLI: `python -m python_library_boilerplate.template`
+    2. Or import as a library in Python: `from python_library_boilerplate import Template`
 
 ### Pre-Commit for Development
 
@@ -27,7 +27,13 @@ The main goal is to explore and demonstrate best practices, patterns, and techno
 
 ## Description
 
-Personal template for developing an library with python.
+**Python Library Boilerplate** is a production-ready starting point for building Python libraries from scratch. Instead of spending time setting up project structure, tooling, and architecture decisions every time you start a new library, this boilerplate gives you a solid, opinionated foundation that you can clone and build on top of immediately.
+
+The project enforces a **layered architecture** where constants sit at the bottom, exceptions and utilities build on top of them, models handle input validation, and the main public class composes everything together. This separation ensures that each layer is independently testable and that concerns never leak across boundaries.
+
+Out of the box you get a fully configured development environment: **Ruff** for linting and formatting with sensible rules, **pre-commit hooks** that run automatically before every commit, **Pydantic v2** for declarative data validation, a **structured logging setup** that avoids duplicate handlers, a **custom exception hierarchy** with machine-readable error codes and human-readable messages, and a **pytest suite** with coverage, parallelism, timeout, and environment variable support already wired up.
+
+The intended workflow is: clone the repo, rename the package, delete or replace `template.py` and `template_model.py` with your own domain logic, and start building. Every scaffolding decision — file layout, import conventions, error handling strategy, test structure — has already been made following Python best practices so you do not have to.
 
 ## Technologies used
 
@@ -61,7 +67,7 @@ pytest-xdist==3.5.0
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/Template-Library-Python`](https://www.diegolibonati.com.ar/#/project/Template-Library-Python)
+[`https://www.diegolibonati.com.ar/#/project/python-library-boilerplate`](https://www.diegolibonati.com.ar/#/project/python-library-boilerplate)
 
 ## Testing
 
@@ -98,9 +104,9 @@ The consuming application is responsible for loading the `.env` file (e.g. using
 ## Project Structure
 
 ```
-Template-Library-Python/
+python_library_boilerplate/
 ├── src/
-│   └── template_library_python/
+│   └── python_library_boilerplate/
 │       ├── __init__.py
 │       ├── template.py
 │       ├── configs/
@@ -116,7 +122,7 @@ Template-Library-Python/
 │       └── utils/
 │           ├── __init__.py
 │           └── exceptions.py
-├── test/
+├── tests/
 │   ├── configs/
 │   │   ├── __init__.py
 │   │   └── test_logger_config.py
@@ -145,14 +151,14 @@ Template-Library-Python/
 └── requirements.test.txt
 ```
 
-1. `src/template_library_python` -> Root directory of the source code. Contains the full library logic following a **layered architecture** pattern.
+1. `src/python_library_boilerplate` -> Root directory of the source code. Contains the full library logic following a **layered architecture** pattern.
 2. `configs` -> Contains **logging setup** and any shared configuration utilities used across the library.
 3. `constants` -> Holds **static values** such as error codes and user-facing messages, centralized to ensure consistency across the codebase.
 4. `models` -> Defines **Pydantic models** for data validation and serialization.
 5. `utils` -> Contains the **custom exception hierarchy** and other shared utilities used across multiple modules.
 6. `template.py` -> The **main public class** of the library. This is the entry point that consumers interact with.
-7. `test` -> Contains **tests** organized to mirror the `src/` structure.
-8. `conftest.py` -> Defines **shared pytest fixtures** used across all test modules.
+7. `tests` -> Contains **tests** organized to mirror the `src/` structure.
+8. `conftest.py` -> Defines **shared pytest fixtures** used across all tests modules.
 9. `pyproject.toml` -> **Unified project configuration** for setuptools, pytest, and ruff.
 10. `requirements.txt` -> Lists **production dependencies**.
 11. `requirements.dev.txt` -> Lists **development dependencies** (pre-commit, pip-audit).
@@ -246,7 +252,7 @@ Template  ──► TemplateModel (validates input)
 Only `Template` is exported. All other modules (`constants`, `utils`, `configs`, `models`) are internal implementation details and should not be imported directly by consumers.
 
 ```python
-from template_library_python import Template
+from python_library_boilerplate import Template
 ```
 
 ## Known Issues
