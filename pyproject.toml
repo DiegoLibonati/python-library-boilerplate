@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "python_library_boilerplate"
 version = "1.0.0"
-description = "**PythonLibraryBoilerplate** is a production-ready starting point for building Python libraries from scratch. Instead of spending time setting up project structure, tooling, and architecture decisions every time you start a new library, this boilerplate gives you a solid, opinionated foundation that you can clone and build on top of immediately."
+description = "PythonLibraryBoilerplate is a production-ready starting point for building Python libraries from scratch. Instead of spending time setting up project structure, tooling, and architecture decisions every time you start a new library, this boilerplate gives you a solid, opinionated foundation that you can clone and build on top of immediately."
 requires-python = ">=3.11"
 authors = [{name = "Diego Martin Libonati"}]
 license = {text = "MIT"}
