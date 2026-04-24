@@ -68,6 +68,11 @@ class TestValidationError:
         assert error.message == "Validation error"
 
     @pytest.mark.unit
+    def test_default_code(self) -> None:
+        error: ValidationError = ValidationError()
+        assert error.code == CODE_ERROR_INTERNAL_LIBRARY
+
+    @pytest.mark.unit
     def test_custom_code_and_message(self) -> None:
         error: ValidationError = ValidationError(code="VAL_CODE", message="Invalid input")
         assert error.code == "VAL_CODE"
@@ -91,6 +96,11 @@ class TestAuthenticationError:
         assert error.message == "Authentication error"
 
     @pytest.mark.unit
+    def test_default_code(self) -> None:
+        error: AuthenticationError = AuthenticationError()
+        assert error.code == CODE_ERROR_INTERNAL_LIBRARY
+
+    @pytest.mark.unit
     def test_can_be_raised_and_caught(self) -> None:
         with pytest.raises(AuthenticationError):
             raise AuthenticationError()
@@ -106,6 +116,11 @@ class TestNotFoundError:
     def test_default_message(self) -> None:
         error: NotFoundError = NotFoundError()
         assert error.message == "Resource not found"
+
+    @pytest.mark.unit
+    def test_default_code(self) -> None:
+        error: NotFoundError = NotFoundError()
+        assert error.code == CODE_ERROR_INTERNAL_LIBRARY
 
     @pytest.mark.unit
     def test_can_be_raised_and_caught(self) -> None:
@@ -125,6 +140,11 @@ class TestConflictError:
         assert error.message == "Conflict error"
 
     @pytest.mark.unit
+    def test_default_code(self) -> None:
+        error: ConflictError = ConflictError()
+        assert error.code == CODE_ERROR_INTERNAL_LIBRARY
+
+    @pytest.mark.unit
     def test_can_be_raised_and_caught(self) -> None:
         with pytest.raises(ConflictError):
             raise ConflictError()
@@ -142,6 +162,11 @@ class TestBusinessError:
         assert error.message == "Business rule violated"
 
     @pytest.mark.unit
+    def test_default_code(self) -> None:
+        error: BusinessError = BusinessError()
+        assert error.code == CODE_ERROR_INTERNAL_LIBRARY
+
+    @pytest.mark.unit
     def test_can_be_raised_and_caught(self) -> None:
         with pytest.raises(BusinessError):
             raise BusinessError()
@@ -157,6 +182,11 @@ class TestInternalError:
     def test_default_message(self) -> None:
         error: InternalError = InternalError()
         assert error.message == "Internal error"
+
+    @pytest.mark.unit
+    def test_default_code(self) -> None:
+        error: InternalError = InternalError()
+        assert error.code == CODE_ERROR_INTERNAL_LIBRARY
 
     @pytest.mark.unit
     def test_can_be_raised_and_caught(self) -> None:
