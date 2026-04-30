@@ -89,6 +89,61 @@ You can check your dependencies for known vulnerabilities using **pip-audit**.
 3. Execute: `pip install -r requirements.dev.txt`
 4. Execute: `pip-audit -r requirements.txt`
 
+## Publishing to PyPI
+
+When your library is ready to be distributed, you can publish it to [PyPI](https://pypi.org) so others can install it with `pip install <your-package>`.
+
+### 1. Bump the version
+
+Update the `version` field in `pyproject.toml` following [Semantic Versioning](https://semver.org):
+
+```
+MAJOR.MINOR.PATCH
+```
+
+- `PATCH` — backwards-compatible bug fixes
+- `MINOR` — new backwards-compatible functionality
+- `MAJOR` — breaking changes
+
+### 2. Build the package
+
+```bash
+pip install build
+python -m build
+```
+
+This generates two files inside `dist/`:
+- `*.tar.gz` — source distribution
+- `*.whl` — built wheel
+
+### 3. Validate the distribution
+
+```bash
+pip install twine
+twine check dist/*
+```
+
+Fix any warnings before uploading.
+
+### 4. (Optional) Test on TestPyPI first
+
+```bash
+twine upload --repository testpypi dist/*
+pip install --index-url https://test.pypi.org/simple/ <your-package>
+```
+
+### 5. Upload to PyPI
+
+```bash
+twine upload dist/*
+```
+
+You will be prompted for your PyPI credentials. It is recommended to use an [API token](https://pypi.org/manage/account/token/) instead of your password.
+
+---
+
+> **Rename before publishing:** replace every occurrence of `python_library_boilerplate` / `python-library-boilerplate` in `pyproject.toml`, `src/`, and `tests/` with your actual package name. PyPI package names are global and permanent.
+
 ## Env Keys
 
 This template does not use environment variables by default. However, if your library requires external configuration such as API keys, secrets, or service URLs, you can add them to the `.env` file following the `.env.example` structure.
