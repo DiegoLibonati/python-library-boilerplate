@@ -6,25 +6,6 @@ This project was created primarily for **educational and learning purposes**.
 While it is well-structured and could technically be used in production, it is **not intended for commercialization**.  
 The main goal is to explore and demonstrate best practices, patterns, and technologies in software development.
 
-## Getting Started
-
-1. Clone the repository
-2. Go to the repository folder and execute: `python -m venv venv`
-3. Execute in Windows: `venv\Scripts\activate`
-4. Execute in Linux/Mac: `source venv/bin/activate`
-5. Execute: `pip install -r requirements.txt`
-6. Execute: `pip install -r requirements.dev.txt`
-7. Execute: `pip install -r requirements.test.txt`
-8. Install the package in editable mode: `pip install -e .`
-9. Run the project:
-    1. From CLI: `python -m python_library_boilerplate.template`
-    2. Or import as a library in Python: `from python_library_boilerplate import Template`
-
-### Pre-Commit for Development
-
-1. Once you're inside the virtual environment, let's install the hooks specified in the pre-commit. Execute: `pre-commit install`
-2. Now every time you try to commit, the pre-commit lint will run. If you want to do it manually, you can run the command: `pre-commit run --all-files`
-
 ## Description
 
 **Python Library Boilerplate** is a production-ready starting point for building Python libraries from scratch. Instead of spending time setting up project structure, tooling, and architecture decisions every time you start a new library, this boilerplate gives you a solid, opinionated foundation that you can clone and build on top of immediately.
@@ -40,6 +21,8 @@ The intended workflow is: clone the repo, rename the package, delete or replace 
 1. Python >= 3.11
 
 ## Libraries used
+
+Dependencies are split across three requirements files so production installs stay minimal. They are installed in order during [Getting Started](#getting-started).
 
 #### Requirements.txt
 
@@ -65,84 +48,25 @@ pytest-timeout==2.3.1
 pytest-xdist==3.5.0
 ```
 
-## Portfolio Link
+## Getting Started
 
-[`https://www.diegolibonati.com.ar/#/project/python-library-boilerplate`](https://www.diegolibonati.com.ar/#/project/python-library-boilerplate)
-
-## Testing
-
-1. Go to the repository folder
-2. Execute: `python -m venv venv`
+1. Clone the repository
+2. Go to the repository folder and execute: `python -m venv venv`
 3. Execute in Windows: `venv\Scripts\activate`
 4. Execute in Linux/Mac: `source venv/bin/activate`
 5. Execute: `pip install -r requirements.txt`
-6. Execute: `pip install -r requirements.test.txt`
-7. Install the package in editable mode: `pip install -e .`
-8. Execute: `pytest --log-cli-level=INFO`
+6. Execute: `pip install -r requirements.dev.txt`
+7. Execute: `pip install -r requirements.test.txt`
+8. Install the package in editable mode: `pip install -e .`
+9. (Optional) If your library reads environment variables, copy the example file: `cp .env.example .env` and fill in the values described in [Env Keys](#env-keys)
+10. Run the project:
+    1. From CLI: `python -m python_library_boilerplate.template`
+    2. Or import as a library in Python: `from python_library_boilerplate import Template`
 
-## Security Audit
+### Pre-Commit for Development
 
-You can check your dependencies for known vulnerabilities using **pip-audit**.
-
-1. Go to the repository folder
-2. Activate your virtual environment
-3. Execute: `pip install -r requirements.dev.txt`
-4. Execute: `pip-audit -r requirements.txt`
-
-## Publishing to PyPI
-
-When your library is ready to be distributed, you can publish it to [PyPI](https://pypi.org) so others can install it with `pip install <your-package>`.
-
-### 1. Bump the version
-
-Update the `version` field in `pyproject.toml` following [Semantic Versioning](https://semver.org):
-
-```
-MAJOR.MINOR.PATCH
-```
-
-- `PATCH` — backwards-compatible bug fixes
-- `MINOR` — new backwards-compatible functionality
-- `MAJOR` — breaking changes
-
-### 2. Build the package
-
-```bash
-pip install build
-python -m build
-```
-
-This generates two files inside `dist/`:
-- `*.tar.gz` — source distribution
-- `*.whl` — built wheel
-
-### 3. Validate the distribution
-
-```bash
-pip install twine
-twine check dist/*
-```
-
-Fix any warnings before uploading.
-
-### 4. (Optional) Test on TestPyPI first
-
-```bash
-twine upload --repository testpypi dist/*
-pip install --index-url https://test.pypi.org/simple/ <your-package>
-```
-
-### 5. Upload to PyPI
-
-```bash
-twine upload dist/*
-```
-
-You will be prompted for your PyPI credentials. It is recommended to use an [API token](https://pypi.org/manage/account/token/) instead of your password.
-
----
-
-> **Rename before publishing:** replace every occurrence of `python_library_boilerplate` / `python-library-boilerplate` in `pyproject.toml`, `src/`, and `tests/` with your actual package name. PyPI package names are global and permanent.
+1. Once you're inside the virtual environment, let's install the hooks specified in the pre-commit. Execute: `pre-commit install`
+2. Now every time you try to commit, the pre-commit lint will run. If you want to do it manually, you can run the command: `pre-commit run --all-files`
 
 ## Env Keys
 
@@ -220,6 +144,8 @@ python_library_boilerplate/
 12. `requirements.test.txt` -> Lists **testing dependencies** (pytest and plugins).
 
 ## Architecture & Design Patterns
+
+The folder layout above maps directly onto the layered design described below — each top-level folder under `src/python_library_boilerplate/` corresponds to one layer.
 
 ### Layered Architecture
 
@@ -310,6 +236,88 @@ Only `Template` is exported. All other modules (`constants`, `utils`, `configs`,
 from python_library_boilerplate import Template
 ```
 
+## Testing
+
+With the architecture in place, the test suite mirrors the `src/` layout so each layer can be exercised in isolation.
+
+1. Go to the repository folder
+2. Execute: `python -m venv venv`
+3. Execute in Windows: `venv\Scripts\activate`
+4. Execute in Linux/Mac: `source venv/bin/activate`
+5. Execute: `pip install -r requirements.txt`
+6. Execute: `pip install -r requirements.test.txt`
+7. Install the package in editable mode: `pip install -e .`
+8. Execute: `pytest --log-cli-level=INFO`
+
+## Security Audit
+
+Once the test suite is green, verify your dependencies for known vulnerabilities using **pip-audit** before producing any release artifact.
+
+1. Go to the repository folder
+2. Activate your virtual environment
+3. Execute: `pip install -r requirements.dev.txt`
+4. Execute: `pip-audit -r requirements.txt`
+
+## Build
+
+When tests pass and the security audit is clean, build the distributable artifacts that will be uploaded in [Production](#production).
+
+### 1. Bump the version
+
+Update the `version` field in `pyproject.toml` following [Semantic Versioning](https://semver.org):
+
+```
+MAJOR.MINOR.PATCH
+```
+
+- `PATCH` — backwards-compatible bug fixes
+- `MINOR` — new backwards-compatible functionality
+- `MAJOR` — breaking changes
+
+### 2. Build the package
+
+```bash
+pip install build
+python -m build
+```
+
+This generates two files inside `dist/`:
+- `*.tar.gz` — source distribution
+- `*.whl` — built wheel
+
+### 3. Validate the distribution
+
+```bash
+pip install twine
+twine check dist/*
+```
+
+Fix any warnings before uploading.
+
+## Production
+
+Final checklist before publishing your library to [PyPI](https://pypi.org) so others can install it with `pip install <your-package>`. Each step links to the section that describes it in detail — this list only adds the production-only concerns (renaming, `.env.prod`, and the upload itself).
+
+1. Run the full test suite — see [Testing](#testing).
+2. Audit dependencies for known CVEs — see [Security Audit](#security-audit).
+3. Bump the version and produce the artifacts in `dist/` — see [Build](#build).
+4. **Configure production environment**: if your library exposes runtime configuration, duplicate `.env.example` as `.env.prod` and fill in the production values described in [Env Keys](#env-keys). The consuming application loads it; the library itself should only read from `os.environ`.
+5. **Rename before publishing**: replace every occurrence of `python_library_boilerplate` / `python-library-boilerplate` in `pyproject.toml`, `src/`, and `tests/` with your actual package name. PyPI package names are global and permanent.
+6. (Optional) Smoke-test on TestPyPI first:
+   ```bash
+   twine upload --repository testpypi dist/*
+   pip install --index-url https://test.pypi.org/simple/ <your-package>
+   ```
+7. Upload to PyPI:
+   ```bash
+   twine upload dist/*
+   ```
+   You will be prompted for your PyPI credentials. It is recommended to use an [API token](https://pypi.org/manage/account/token/) instead of your password.
+
 ## Known Issues
 
 None at the moment.
+
+## Portfolio Link
+
+[`https://www.diegolibonati.com.ar/#/project/python-library-boilerplate`](https://www.diegolibonati.com.ar/#/project/python-library-boilerplate)
