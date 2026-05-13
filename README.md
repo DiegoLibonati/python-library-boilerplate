@@ -297,12 +297,12 @@ Fix any warnings before uploading.
 
 ## Production
 
-Final checklist before publishing your library to [PyPI](https://pypi.org) so others can install it with `pip install <your-package>`. Each step links to the section that describes it in detail — this list only adds the production-only concerns (renaming, `.env.prod`, and the upload itself).
+Final checklist before publishing your library to [PyPI](https://pypi.org) so others can install it with `pip install <your-package>`. Each step links to the section that describes it in detail — this list only adds the production-only concerns (renaming and the upload itself).
 
 1. Run the full test suite — see [Testing](#testing).
 2. Audit dependencies for known CVEs — see [Security Audit](#security-audit).
 3. Bump the version and produce the artifacts in `dist/` — see [Build](#build).
-4. **Configure production environment**: if your library exposes runtime configuration, duplicate `.env.example` as `.env.prod` and fill in the production values described in [Env Keys](#env-keys). The consuming application loads it; the library itself should only read from `os.environ`.
+4. **Configure environment**: if your library exposes runtime configuration, duplicate `.env.example` as `.env` and fill in the values described in [Env Keys](#env-keys). The consuming application loads it; the library itself should only read from `os.environ`.
 5. **Rename before publishing**: replace every occurrence of `python_library_boilerplate` / `python-library-boilerplate` in `pyproject.toml`, `src/`, and `tests/` with your actual package name. PyPI package names are global and permanent.
 6. (Optional) Smoke-test on TestPyPI first:
    ```bash
