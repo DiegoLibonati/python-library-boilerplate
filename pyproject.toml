@@ -39,6 +39,9 @@ test = [
     "pytest-xdist==3.5.0",
 ]
 
+[project.scripts]
+boilerplate-demo = "examples.demo:main"
+
 [project.urls]
 Homepage = "https://github.com/<owner>/Template-Library-Python"
 Repository = "https://github.com/<owner>/Template-Library-Python"

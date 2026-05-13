@@ -1,3 +1,11 @@
+"""Demo entry point for the python-library-boilerplate library.
+
+Run with:
+    python -m examples.demo
+or (if installed via `pip install -e .`):
+    python_library_boilerplate-demo
+"""
+
 from python_library_boilerplate import Template
 from python_library_boilerplate.configs.logger_config import setup_logger
 
