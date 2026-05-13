@@ -3,7 +3,7 @@
 Run with:
     python -m examples.demo
 or (if installed via `pip install -e .`):
-    python_library_boilerplate-demo
+    boilerplate-demo
 """
 
 from python_library_boilerplate import Template
