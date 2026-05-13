@@ -92,26 +92,26 @@ class TestTemplateAdd:
     @pytest.mark.unit
     def test_add_float_raises_validation_error(self, template: Template) -> None:
         with pytest.raises(ValidationError):
-            template.add(1.5, 2)  # type: ignore[arg-type]
+            template.add(1.5, 2)
 
     @pytest.mark.unit
     def test_add_string_raises_validation_error(self, template: Template) -> None:
         with pytest.raises(ValidationError):
-            template.add("1", 2)  # type: ignore[arg-type]
+            template.add("1", 2)
 
     @pytest.mark.unit
     def test_add_none_raises_validation_error(self, template: Template) -> None:
         with pytest.raises(ValidationError):
-            template.add(None, 2)  # type: ignore[arg-type]
+            template.add(None, 2)
 
     @pytest.mark.unit
     def test_add_validation_error_code(self, template: Template) -> None:
         with pytest.raises(ValidationError) as exc_info:
-            template.add("x", 1)  # type: ignore[arg-type]
+            template.add("x", 1)
         assert exc_info.value.code == CODE_NOT_VALID_INTEGER
 
     @pytest.mark.unit
     def test_add_validation_error_message(self, template: Template) -> None:
         with pytest.raises(ValidationError) as exc_info:
-            template.add("x", 1)  # type: ignore[arg-type]
+            template.add("x", 1)
         assert exc_info.value.message == MESSAGE_NOT_VALID_INTEGER

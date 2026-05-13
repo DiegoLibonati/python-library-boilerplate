@@ -25,26 +25,3 @@ class Template:
         if not isinstance(num1, int) or not isinstance(num2, int):
             raise ValidationError(code=CODE_NOT_VALID_INTEGER, message=MESSAGE_NOT_VALID_INTEGER)
         return num1 + num2
-
-
-def main() -> None:
-    name: str = "Die"
-
-    num1: int = 1
-    num2: int = 2
-
-    library = Template(name=name)
-
-    library.say_hello()
-
-    result = library.add(num1=num1, num2=num2)
-
-    logger.info(f"Sum: {result}")
-
-    logger.info(f"Model: {type(library.pydantic_model)}")
-
-    # library.throw_not_found()
-
-
-if __name__ == "__main__":
-    main()

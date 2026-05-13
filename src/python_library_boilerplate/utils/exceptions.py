@@ -6,15 +6,11 @@ class BaseError(Exception):
     message: str = MESSAGE_ERROR_INTERNAL_LIBRARY
     code: str = CODE_ERROR_INTERNAL_LIBRARY
 
-    def __init__(
-        self,
-        code: str = code,
-        message: str | None = None,
-    ):
-        if message is not None:
-            self.message = message
+    def __init__(self, code: str | None = None, message: str | None = None):
         if code is not None:
             self.code = code
+        if message is not None:
+            self.message = message
         super().__init__(self.message)
 
 

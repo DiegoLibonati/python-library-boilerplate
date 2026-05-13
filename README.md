@@ -22,15 +22,15 @@ The intended workflow is: clone the repo, rename the package, delete or replace 
 
 ## Libraries used
 
-Dependencies are split across three requirements files so production installs stay minimal. They are installed in order during [Getting Started](#getting-started).
+Dependencies are declared in `pyproject.toml` and split into optional groups so production installs stay minimal.
 
-#### Requirements.txt
+#### Runtime ([project.dependencies])
 
 ```
-pydantic==2.11.9
+pydantic>=2.11,<3
 ```
 
-#### Requirements.dev.txt
+#### Dev ([project.optional-dependencies] dev)
 
 ```
 pre-commit==4.3.0
@@ -38,7 +38,7 @@ pip-audit==2.7.3
 ruff==0.11.12
 ```
 
-#### Requirements.test.txt
+#### Test ([project.optional-dependencies] test)
 
 ```
 pytest==8.4.2
@@ -54,14 +54,10 @@ pytest-xdist==3.5.0
 2. Go to the repository folder and execute: `python -m venv venv`
 3. Execute in Windows: `venv\Scripts\activate`
 4. Execute in Linux/Mac: `source venv/bin/activate`
-5. Execute: `pip install -r requirements.txt`
-6. Execute: `pip install -r requirements.dev.txt`
-7. Execute: `pip install -r requirements.test.txt`
-8. Install the package in editable mode: `pip install -e .`
-9. (Optional) If your library reads environment variables, copy the example file: `cp .env.example .env` and fill in the values described in [Env Keys](#env-keys)
-10. Run the project:
-    1. From CLI: `python -m python_library_boilerplate.template`
-    2. Or import as a library in Python: `from python_library_boilerplate import Template`
+5. Install all dependencies (runtime + dev + test) in editable mode: `pip install -e .[dev,test]`
+6. (Optional) If your library reads environment variables, copy the example file: `cp .env.example .env` and fill in the values described in [Env Keys](#env-keys)
+7. Run the demo: `python examples/basic_usage.py`
+8. Or import as a library in Python: `from python_library_boilerplate import Template`
 
 ### Pre-Commit for Development
 
@@ -84,9 +80,15 @@ The consuming application is responsible for loading the `.env` file (e.g. using
 
 ```
 python_library_boilerplate/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── examples/
+│   └── basic_usage.py
 ├── src/
 │   └── python_library_boilerplate/
 │       ├── __init__.py
+│       ├── py.typed
 │       ├── template.py
 │       ├── configs/
 │       │   ├── __init__.py
@@ -118,10 +120,11 @@ python_library_boilerplate/
 │   ├── __init__.py
 │   ├── conftest.py
 │   └── test_template.py
-├── .env
+├── .editorconfig
 ├── .env.example
 ├── .gitignore
 ├── .pre-commit-config.yaml
+├── CHANGELOG.md
 ├── LICENSE
 ├── pyproject.toml
 ├── README.md
@@ -139,9 +142,9 @@ python_library_boilerplate/
 7. `tests` -> Contains **tests** organized to mirror the `src/` structure.
 8. `conftest.py` -> Defines **shared pytest fixtures** used across all tests modules.
 9. `pyproject.toml` -> **Unified project configuration** for setuptools, pytest, and ruff.
-10. `requirements.txt` -> Lists **production dependencies**.
-11. `requirements.dev.txt` -> Lists **development dependencies** (pre-commit, pip-audit).
-12. `requirements.test.txt` -> Lists **testing dependencies** (pytest and plugins).
+10. `examples/` -> Contains **runnable demos** showing how to use the public API.
+11. `pyproject.toml` -> **Unified project configuration** including runtime deps, optional extras, and tool settings.
+12. `requirements*.txt` -> Thin wrappers that delegate to `pyproject.toml` extras; kept for backward compatibility.
 
 ## Architecture & Design Patterns
 
@@ -244,10 +247,8 @@ With the architecture in place, the test suite mirrors the `src/` layout so each
 2. Execute: `python -m venv venv`
 3. Execute in Windows: `venv\Scripts\activate`
 4. Execute in Linux/Mac: `source venv/bin/activate`
-5. Execute: `pip install -r requirements.txt`
-6. Execute: `pip install -r requirements.test.txt`
-7. Install the package in editable mode: `pip install -e .`
-8. Execute: `pytest --log-cli-level=INFO`
+5. Install test dependencies: `pip install -e .[test]`
+6. Execute: `pytest --log-cli-level=INFO`
 
 ## Security Audit
 
@@ -255,8 +256,8 @@ Once the test suite is green, verify your dependencies for known vulnerabilities
 
 1. Go to the repository folder
 2. Activate your virtual environment
-3. Execute: `pip install -r requirements.dev.txt`
-4. Execute: `pip-audit -r requirements.txt`
+3. Install dev dependencies: `pip install -e .[dev]`
+4. Execute: `pip-audit`
 
 ## Build
 

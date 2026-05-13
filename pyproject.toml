@@ -12,14 +12,45 @@ license = {text = "MIT"}
 readme = "README.md"
 keywords = ["template", "boilerplate", "library", "python"]
 classifiers = [
+    "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Typing :: Typed",
 ]
+dependencies = [
+    "pydantic>=2.11,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit==4.3.0",
+    "pip-audit==2.7.3",
+    "ruff==0.11.12",
+]
+test = [
+    "pytest==8.4.2",
+    "pytest-env==1.1.5",
+    "pytest-cov==4.1.0",
+    "pytest-timeout==2.3.1",
+    "pytest-xdist==3.5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/<owner>/Template-Library-Python"
+Repository = "https://github.com/<owner>/Template-Library-Python"
+Issues = "https://github.com/<owner>/Template-Library-Python/issues"
+Changelog = "https://github.com/<owner>/Template-Library-Python/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["python_library_boilerplate*"]
+
+[tool.setuptools.package-data]
+python_library_boilerplate = ["py.typed"]
 
 [tool.pytest.ini_options]
 pythonpath = "src"
@@ -45,7 +76,7 @@ line-length = 160
 exclude = [".git", "__pycache__", "env", "venv", "migrations"]
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "N", "UP"]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "RUF", "C4"]
 ignore = ["E203"]
 
 [tool.ruff.format]
