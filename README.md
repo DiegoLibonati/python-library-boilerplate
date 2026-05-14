@@ -124,6 +124,7 @@ python_library_boilerplate/
 ├── .env.example
 ├── .gitignore
 ├── .pre-commit-config.yaml
+├── .python-version
 ├── CHANGELOG.md
 ├── LICENSE
 ├── pyproject.toml
