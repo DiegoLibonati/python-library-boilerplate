@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python-library-boilerplate"
-version = "1.0.0"
+version = "0.1.0"
 description = "Python Library Boilerplate is a production-ready starting point for building Python libraries from scratch."
 requires-python = ">=3.11"
 authors = [{name = "Diego Martin Libonati"}]
@@ -47,6 +47,7 @@ Homepage = "https://github.com/<owner>/Template-Library-Python"
 Repository = "https://github.com/<owner>/Template-Library-Python"
 Issues = "https://github.com/<owner>/Template-Library-Python/issues"
 Changelog = "https://github.com/<owner>/Template-Library-Python/blob/main/CHANGELOG.md"
+
 
 [tool.setuptools.packages.find]
 where = ["src"]
