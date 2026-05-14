@@ -85,3 +85,9 @@ ignore = ["E203"]
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+branch = "main"
+changelog_file = "CHANGELOG.md"
+build_command = "pip install build && python -m build"
