@@ -30,6 +30,7 @@ dev = [
     "pre-commit==4.3.0",
     "pip-audit==2.7.3",
     "ruff==0.11.12",
+    "mypy==1.13.0",
 ]
 test = [
     "pytest==9.0.3",
@@ -92,3 +93,8 @@ version_toml = ["pyproject.toml:project.version"]
 branch = "main"
 changelog_file = "CHANGELOG.md"
 build_command = "pip install build && python -m build"
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+exclude = ["venv", "tests"]
