@@ -37,6 +37,7 @@ pre-commit==4.3.0
 pip-audit==2.7.3
 ruff==0.11.12
 mypy==1.13.0
+python-semantic-release==9.21.0
 ```
 
 #### Test (`[project.optional-dependencies]` test)
@@ -327,7 +328,7 @@ The repository ships with a **GitHub Actions** pipeline defined in [`.github/wor
 
 ### Release job (only on push to `main`)
 
-4. **`release`** — runs [`python-semantic-release`](https://python-semantic-release.readthedocs.io/), which inspects the commits since the latest tag, decides the next SemVer version using [Conventional Commits](#conventional-commits-required-for-releases), updates the `version` field in `pyproject.toml` and prepends a new entry to `CHANGELOG.md`, creates the git tag, and publishes the GitHub Release. Skipped automatically when the head commit message contains `[skip release]`.
+4. **`release`** — runs [`python-semantic-release`](https://python-semantic-release.readthedocs.io/) pinned to `v9.21.0`, which inspects the commits since the latest tag, decides the next SemVer version using [Conventional Commits](#conventional-commits-required-for-releases), updates the `version` field in `pyproject.toml` and prepends a new entry to `CHANGELOG.md`, creates a git tag in the `v{version}` format, builds the `sdist` and `wheel` via `python -m build`, and publishes a GitHub Release with both artifacts attached. The version bump is committed back to `main` with the message `chore(release): v{version} [skip release]`, which prevents the push from triggering another release cycle. `major_on_zero = false` keeps `0.x` releases from jumping to `1.0.0` on a `feat!` until you explicitly opt in.
 
 ### Conventional Commits (required for releases)
 
@@ -359,10 +360,11 @@ To skip **everything** including validation, use GitHub's standard `[skip ci]` m
 |---|---|
 | Validation logs (lint, tests, audit) | **Actions** tab on GitHub |
 | `sdist` + `wheel` from the `build` job | Ephemeral, inside the runner |
+| `sdist` + `wheel` from the `release` job | Attached to the GitHub Release (`upload_to_vcs_release = true`) |
 | Version history & notes | [`CHANGELOG.md`](CHANGELOG.md) + **Releases** page |
-| GitHub Release per version (tag) | **Releases** page (sidebar of the repo) |
+| GitHub Release per version (tag `v{version}`) | **Releases** page (sidebar of the repo) |
 
-> **Note:** the `build` job does **not** upload the artifacts to PyPI. Publishing to PyPI is the manual step described in [Production](#production). If you want fully automated PyPI uploads, add a step using `pypa/gh-action-pypi-publish` after the `release` job, or enable the `upload_to_pypi` feature of `python-semantic-release`.
+> **Note:** neither job uploads the artifacts to PyPI. Publishing to PyPI is the manual step described in [Production](#production). If you want fully automated PyPI uploads, add a step using `pypa/gh-action-pypi-publish` after the `release` job, or enable the `upload_to_pypi` feature of `python-semantic-release`.
 
 ### Repository setup required for releases
 
